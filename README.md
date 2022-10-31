@@ -1,6 +1,6 @@
 # Book-Shop-Management
 Hello Everyone, 
-In this GitHub repository, I've created a Book Shop Management tool in python. Which uses MySQL to store data.
+In this GitHub repository, I've created a menu driven Book Shop Management tool in python. Which uses MySQL to store data.
 
 How to use:
 1. install MySQL in your system.
