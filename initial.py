@@ -16,3 +16,6 @@ mycursor.execute("create table buyrequests(book_id int, client_name varchar(30),
 #Notify user.
 print("All Done.")
 print("You can insert book data using 'admin.py' file.")
+
+
+#Created by Harsh Verma (github.com/harshverma27)

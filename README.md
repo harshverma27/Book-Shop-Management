@@ -9,3 +9,4 @@ How to use:
 4. Run 'user.py' file if you're a visitor to the shop.
 
 I hope you will love the project, suggestions are invited. :)
+Thank You.
