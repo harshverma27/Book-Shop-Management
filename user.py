@@ -1,4 +1,5 @@
 import mysql.connector as mc
+
 mydb = mc.connect(user="root", host="localhost", passwd="root", database='bookshop')
 mycursor = mydb.cursor()
 
