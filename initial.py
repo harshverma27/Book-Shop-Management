@@ -4,7 +4,7 @@ mycursor = mydb.cursor()
 
 #Create databases;
 print("Creating Databases :- ")
-mycursor.execute("create databases bookshop;")
+mycursor.execute("create database bookshop;")
 mycursor.execute("use bookshop")
 
 #Create all tables in databases;
