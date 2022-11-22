@@ -60,7 +60,7 @@ def main():
 
 
         if choice == 3: # To update Data
-            updateid = input("Whose Record you want to update(Enter Student ID): ")
+            updateid = input("Whose Record you want to update(Enter Book ID): ")
             print("What Do want to Update:-\n1 For Book Name.\n2 For Book Author.\n3 For Genre.\n4 For Book Price")
             update =  int(input("Enter Choice: "))
 
@@ -108,7 +108,7 @@ def main():
             print("Book ID, Book Name, Client Name")
             runQuery("select buyrequests.book_id, book_name, book_price, client_name from buyrequests,book where buyrequests.book_id = book.book_id;")
 
-            print("Which request do you want to accept? ")
+            print("Which request do you want to accept? (Leave Blank for none.)")
             secondChoice = input("Enter Book ID: ")
 
             try:
