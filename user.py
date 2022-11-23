@@ -1,6 +1,6 @@
 import mysql.connector as mc
-
-mydb = mc.connect(user="root", host="localhost", passwd="root", database='bookshop')
+from prettytable import PrettyTable
+mydb = mc.connect(user="root", host="localhost", passwd="root", port=3306,database='bookshop')
 mycursor = mydb.cursor()
 
 # this function runs query in SQL shell, and prints the output.
@@ -8,6 +8,14 @@ def runQuery(s: str):
     mycursor.execute(s)
     for i in mycursor.fetchall():  # type: ignore
         print(i, end="\n")
+
+
+# this function runs query in SQL shell, and adds the data to a table insteading of printing it.
+def runQueryAddData(s: str,table):
+    mycursor.execute(s)
+    for i in mycursor.fetchall(): # type: ignore
+        table.add_row(i)
+    
 
 # this function checks if a 'id' is in 'book_id' of table buyrequests.
 def checkBookID(id: int):
@@ -18,9 +26,10 @@ def checkBookID(id: int):
                 return True
                 break
     return False
+                  
                     
 # the menu fucntion is responsible for choice selection
-def menu():
+def user_menu():
     choices = """\nWhat Do You Want To Do?\n1 To View Books.\n2 To Ask book for issue.\n3 To Submit Book.\n4 To Buy Book.\n5 to Exit."""  # All available choices
     print(choices)
 
@@ -41,20 +50,27 @@ def menu():
     return choice
 
 # this is the main function which does the main work of working on the choices and both frontend and backend
-def main():
+def user_main():
 
     # this forever loop only gets exitted using choice 5.
     while True:
 
-        choice = menu() # choices gets choosen using menu function
+        choice = user_menu() # choices gets choosen using menu function
 
         if choice == 1: #To View All books data:
             print("\n1 to View All Books\n2 To see Filters")
             secondChoice = int(input("Enter Choice: "))
             
             if secondChoice == 1: # to view all books
-                print("Book_ID, Book_Name, Book Author, Genre, Price")
-                runQuery("select * from book;")
+
+                # create a table using PrettyTable Module
+                myTable = PrettyTable(["Book_id","Book_Name","Book_Author","Genre","Book_Price"])
+                
+                # add data to it.
+                runQueryAddData("select * from book;",myTable)
+
+                # print it
+                print(myTable) # print it.
 
             if secondChoice == 2: # to view books in filter
 
@@ -67,37 +83,43 @@ def main():
                 if thirdChoice == 1:
 
                     # get unique genres uing MySQL
-                    print("Available Genres:: ")
-                    runQuery("select distinct genre from book order by genre;")
+                    myTable = PrettyTable(["Genre"])
+                    runQueryAddData("select distinct genre from book order by genre;",myTable)
+                    print(myTable)
                     
                     # get choice of genre
                     print("\nWhich Genre You want to See: ")
                     fourthChoice = input("Enter Choice: ")
 
                     # print according to choice;
-                    print("\nBook_ID, Book_Name, Book Author, Genre, Price")
-                    runQuery("select * from book where genre = '"+fourthChoice+"';")
+                    myTable = PrettyTable(["Book_ID", "Book_Name", "Book Author", "Genre", "Price"])
+                    runQueryAddData("select * from book where genre = '"+fourthChoice+"';",myTable)
+                    print(myTable)
+
                 
                 if thirdChoice == 2:
 
                     # get unique authors using MySQL
                     print("\nAvailable Authors:: ")
-                    runQuery("select distinct book_author from book;")
+                    myTable = PrettyTable(["Authors"])
+                    runQueryAddData("select distinct book_author from book;",myTable)
+                    print(myTable)
 
                     # get choice
                     print("\nWhich Author You Want: ")
                     fourthChoice = input("Enter Choice: ")
 
                     # print according to choices
-                    print("\nBook_ID, Book_Name, Book Author, Genre, Price")
-                    runQuery("select * from book where book_author ='"+fourthChoice+"';")
+                    myTable = PrettyTable(["Book_ID", "Book_Name", "Book Author", "Genre", "Price"])
+                    runQueryAddData("select * from book where book_author ='"+fourthChoice+"';",myTable)
+                    print(myTable)
 
                 if thirdChoice == 3:
                     
                     # in price filter, we basically adjust books in ascending price order. 
-                    print("\nBook_ID, Book_Name, Book Author, Genre, Price")
-                    runQuery("select * from book order by book_price;")
-
+                    myTable = PrettyTable(["Book_ID","Book_Name", "Book Author", "Genre", "Price"])
+                    runQueryAddData("select * from book order by book_price;",myTable)
+                    print(myTable)
 
         if choice == 2: # to ask book for issue
 
@@ -170,7 +192,9 @@ def main():
         
         if choice == 5: # to exit.
             exit()
-            
-main()
 
+        finalChoice = input("Do You want to Continue or Not (Y or N):-")
+        if finalChoice == 'n' or finalChoice == 'N' or finalChoice.lower() == "no":
+            break
+            
 #Created by Harsh Verma (github.com/harshverma27)

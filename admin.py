@@ -1,15 +1,23 @@
 import mysql.connector as mc
+from prettytable import PrettyTable
 mydb = mc.connect(user="root", host="localhost", passwd="root", database='bookshop')
 mycursor = mydb.cursor()
+adminpasswd = "library"
 
 # this fucntion runs query in SQL shell, and prints the output.
 def runQuery(s: str):
     mycursor.execute(s)
     for i in mycursor.fetchall():  # type: ignore
         print(i, end="\n")
-
-
-def menu():
+    return mycursor.fetchall()
+ 
+# this function runs query in SQL shell, and add the data to a variable in a tabular format.
+def runQueryAddData(s: str,table):
+    mycursor.execute(s)
+    for i in mycursor.fetchall(): # type: ignore
+        table.add_row(i)
+    
+def admin_menu():
     choices = """\nWhat Do You Want To Do?\n1 To View Books.\n2 To Enter Book Data.\n3 To Update Book Data.\n4 To Delete Book Data.\n5 To Check Issues.\n6 To check buy requests.\n7 To EXIT"""  # All available choices
     print(choices)
 
@@ -23,21 +31,23 @@ def menu():
                 raise TypeError
 
         except:
-            print("Choice Should be in integer and between 1 & 6.")
+            print("Choice Should be in integer and between 1 & 7.")
             # this will make loop run forever until required choice is given.
             choice = 0
 
     return choice
 
-def main():
+def admin_main():
 
     # this forever loop only gets exitted using choice 5.
     while True:
 
-        choice = menu() # choices gets choosen using menu function
+        choice = admin_menu() # choices gets choosen using menu function
 
         if choice == 1: # To view Data.
-            runQuery("Select * from book;")
+            myTable =  PrettyTable(["Book_id","Book_Name","Book_Author","Gnere","Book_Price"])
+            runQueryAddData("select * from book", myTable) 
+            print(myTable)
 
         if choice == 2: # To Enter Data.
 
@@ -56,7 +66,7 @@ def main():
                 print("Record Entered.\n")
 
             except Exception as e:
-                print("Error Found :", e)
+                print("Error Found : ", e)
 
 
         if choice == 3: # To update Data
@@ -101,12 +111,14 @@ def main():
                 print("Error: ",e)
 
         if choice == 5: # To check issues
-            print("Book ID, Book Name, Client Name")
-            runQuery("select issue.book_id, book_name, client_name from issue, book where book.book_id = issue.book_id;")
+            myTable = PrettyTable(["Book ID", "Book Name", "Client Name"])
+            runQueryAddData("select issue.book_id, book_name, client_name from issue, book where book.book_id = issue.book_id;", myTable)
+            print(myTable)
 
         if choice == 6: # To check buy requests
-            print("Book ID, Book Name, Client Name")
-            runQuery("select buyrequests.book_id, book_name, book_price, client_name from buyrequests,book where buyrequests.book_id = book.book_id;")
+            myTable = PrettyTable(["Book ID", "Book Name", "Client Name"])
+            runQueryAddData("select buyrequests.book_id, book_name, book_price, client_name from buyrequests,book where buyrequests.book_id = book.book_id;",myTable)
+            print(myTable)
 
             print("Which request do you want to accept? (Leave Blank for none.)")
             secondChoice = input("Enter Book ID: ")
@@ -121,8 +133,9 @@ def main():
 
         if choice == 7: # to exit.
             break
-        
-main()
 
+        finalChoice = input("Do You want to Continue or Not (Y or N):-")
+        if finalChoice == 'n' or finalChoice == 'N' or finalChoice.lower() == "no":
+            break
 
 #Created by Harsh Verma (github.com/harshverma27)
