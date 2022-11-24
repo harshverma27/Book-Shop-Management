@@ -28,6 +28,7 @@ if choice == 1:
 elif choice == 2:
     user_main()
 
+# invalid choice will result in error.
 else:
     print("Invalid Choice.")
     
