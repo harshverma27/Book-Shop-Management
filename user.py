@@ -1,6 +1,6 @@
 import mysql.connector as mc
 from prettytable import PrettyTable
-mydb = mc.connect(user="root", host="localhost", passwd="root", port=3306,database='bookshop')
+mydb = mc.connect(user="root", host="localhost", passwd="root",database='bookshop')
 mycursor = mydb.cursor()
 
 # this function runs query in SQL shell, and prints the output.
