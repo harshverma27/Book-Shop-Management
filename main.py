@@ -2,6 +2,13 @@
 from maskpass import *
 from admin import *
 from user import *
+from initial import *
+
+# ensure that database and all tables are created.
+if checkDatabaseExists == False:
+    createDatabase()
+if checkTableExists == False:
+    createTables()
 
 # get choices from user (admin or visitor)
 print("Who are you?\n1 For Admin.\n2 For Visitor.")
