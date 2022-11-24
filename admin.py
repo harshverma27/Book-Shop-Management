@@ -135,7 +135,7 @@ def admin_main():
             break
 
         finalChoice = input("Do You want to Continue or Not (Y or N):-")
-        if finalChoice == 'n' or finalChoice == 'N' or finalChoice.lower() == "no":
+        if finalChoice.lower() == 'n' or finalChoice.lower() == "no":
             break
 
 #Created by Harsh Verma (github.com/harshverma27)
