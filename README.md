@@ -5,7 +5,7 @@ In this GitHub repository, I've created a menu driven Book Shop Management tool 
 Required Software:
 1. MySQL
 
-Required Python Libraries/Module:
+Required Python Libraries/Modules:
 1. mysql-connector
 2. maskpass
 3. prettytable
