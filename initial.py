@@ -32,5 +32,6 @@ def createTables():
     mycursor.execute("create table book(book_id int primary key, book_name varchar(100), book_author varchar(30) not null, genre varchar(30), book_price int not null);")
     mycursor.execute("create table issue(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
     mycursor.execute("create table buyrequests(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
+    mycursor.execute("cretae table acceptedrequests(book_id int, foreign key (book_id) references book(book_id));")
 
 #Created by Harsh Verma (github.com/harshverma27)
