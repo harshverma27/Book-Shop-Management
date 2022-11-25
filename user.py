@@ -185,7 +185,8 @@ def user_main():
 
                 # check if any book_id matches to buyid.
                 if checkBookID(int(buyid)):
-                    print("Request Approved.")
+                    print("Request Approved. You can take the book now!")
+                    runQuery("delete from acceptedrequests where book id ="+buyid+";")
 
                 else:
                     print("Request Not Approved yet.")
