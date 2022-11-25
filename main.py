@@ -1,9 +1,11 @@
 # import required files and modules
+import colorama
+from colorama import Fore
 from maskpass import *
 from admin import *
 from user import *
 from initial import *
-
+print(Fore.WHITE)
 # ensure that database and all tables are created.
 if checkDatabaseExists == False:
     createDatabase()
@@ -32,4 +34,6 @@ elif choice == 2:
 else:
     print("Invalid Choice.")
     
+print(Fore.RESET)
+print("Thank You for using my project.")
 #Created by Harsh Verma (github.com/harshverma27)
