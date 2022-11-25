@@ -185,8 +185,13 @@ def user_main():
 
                 # check if any book_id matches to buyid.
                 if checkBookID(int(buyid)):
+
+                    # if request has been approved we will inform the user.
                     print("Request Approved. You can take the book now!")
-                    runQuery("delete from acceptedrequests where book id ="+buyid+";")
+
+                    # and, delete the record from acceptedrequests.
+                    runQuery("delete from acceptedrequests where book_id ="+buyid+";")
+                    mydb.commit()
 
                 else:
                     print("Request Not Approved yet.")
