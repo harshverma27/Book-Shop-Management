@@ -5,6 +5,8 @@ from maskpass import *
 from admin import *
 from user import *
 from initial import *
+
+# set colorscheme to White.
 print(Fore.WHITE)
 # ensure that database and all tables are created.
 if checkDatabaseExists == False:
@@ -34,6 +36,6 @@ elif choice == 2:
 else:
     print("Invalid Choice.")
     
-print(Fore.RESET)
 print("Thank You for using my project.")
+print(Fore.RESET)
 #Created by Harsh Verma (github.com/harshverma27)
