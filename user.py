@@ -19,7 +19,7 @@ def runQueryAddData(s: str,table):
 
 # this function checks if a 'id' is in 'book_id' of table buyrequests.
 def checkBookID(id: int):
-    mycursor.execute("select book_id from buyrequests;")
+    mycursor.execute("select book_id from acceptedrequests;")
     for i in mycursor.fetchall():  # type: ignore
         for j in i:
             if int(j) == int(id):
@@ -164,30 +164,31 @@ def user_main():
 
                 # we will basically insert record in a 'buyrequests' table.
                 # get values
-                buyid = input("Enter Book ID of book you want to buy:: ")
-                clientname = input("Enter Your Name:: ")
+                buyid = input("Enter Book ID of book you want to buy: ")
+                clientname = input("Enter Your Name: ")
 
-                # try inserting them;
+                # try inserting record;
                 try:
                     runQuery("insert into buyrequests values("+buyid+",'"+clientname+"');")
                     mydb.commit()
                     print("Buy Request Sent.")
 
-                except:
-                    print("Error")
+                except Exception as e:
+                    print("Error Found: ",e)
             
             # choice 2, to check if request was approved.
             if secondChoice == 2:
 
-                # we will check if the same book_id is still in 'buyrequests' or not. Because if admin approves, it will delete the record from 'buyrequests'
+                # we will check if the same book_id is still in acceptedrequest or not.
                 # get values
                 buyid = input("Enter Book ID of book whose request you sent? ")
 
                 # check if any book_id matches to buyid.
                 if checkBookID(int(buyid)):
-                    print("Request Not approved yet.")
-                else:
                     print("Request Approved.")
+
+                else:
+                    print("Request Not Approved yet.")
             
         
         if choice == 5: # to exit.

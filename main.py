@@ -1,4 +1,4 @@
-# import both admin and user files and required modules
+# import required files and modules
 from maskpass import *
 from admin import *
 from user import *

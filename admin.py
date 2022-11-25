@@ -2,7 +2,7 @@ import mysql.connector as mc
 from prettytable import PrettyTable
 mydb = mc.connect(user="root", host="localhost", passwd="root", database='bookshop')
 mycursor = mydb.cursor()
-adminpasswd = "library"
+adminpasswd = "bookshop"
 
 # this fucntion runs query in SQL shell, and prints the output.
 def runQuery(s: str):
@@ -45,12 +45,19 @@ def admin_main():
         choice = admin_menu() # choices gets choosen using menu function
 
         if choice == 1: # To view Data.
+
+            # first, create a table using pretty table module
             myTable =  PrettyTable(["Book_id","Book_Name","Book_Author","Gnere","Book_Price"])
+
+            # then, add data to it.
             runQueryAddData("select * from book", myTable) 
+
+            # finally, print the table.
             print(myTable)
 
         if choice == 2: # To Enter Data.
 
+            # get values from admin.
             print("Format: Book ID - Book Name - Book Author - Genre - Price")
             book_id = input("Enter Book ID: ")
             book_name = input("Enter Book Name: ")
@@ -111,25 +118,42 @@ def admin_main():
                 print("Error: ",e)
 
         if choice == 5: # To check issues
+
+            # create a table using pretty table module
             myTable = PrettyTable(["Book ID", "Book Name", "Client Name"])
+
+            # add data to it.
             runQueryAddData("select issue.book_id, book_name, client_name from issue, book where book.book_id = issue.book_id;", myTable)
+            
+            # print the table
             print(myTable)
 
         if choice == 6: # To check buy requests
-            myTable = PrettyTable(["Book ID", "Book Name", "Client Name"])
+
+            # print table first.
+            myTable = PrettyTable(["Book ID", "Book Name","Book Price", "Client Name"])
             runQueryAddData("select buyrequests.book_id, book_name, book_price, client_name from buyrequests,book where buyrequests.book_id = book.book_id;",myTable)
             print(myTable)
 
-            print("Which request do you want to accept? (Leave Blank for none.)")
+            # now, we will ask admin, which buy request he wants to accept.
+            print("Which request do you want to accept? (Leave Blank for non.)")
             secondChoice = input("Enter Book ID: ")
 
-            try:
-                runQuery("delete from buyrequests where book_id = "+secondChoice+";")
-                mydb.commit()
-                print("Book Selled.")
-            
-            except:
-                print("Error.")
+            # if admin input a book_id to accept, then
+            if secondChoice != "":
+                try:
+                    # first we will delete its record from buyrequsts;
+                    runQuery("delete from buyrequests where book_id = "+secondChoice+";")
+
+                    # then we will insert its record into acceptedrequests table.
+                    runQuery("insert into acceptedrequests values("+secondChoice+");")
+
+                    # then we will save our changes and infrom admin.
+                    mydb.commit()
+                    print("Book Selled.")
+                
+                except Exception as e:
+                    print("Error Found: ",e)
 
         if choice == 7: # to exit.
             break
