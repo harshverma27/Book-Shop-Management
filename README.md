@@ -9,6 +9,7 @@ Required Python Libraries/Modules:
 1. mysql-connector
 2. maskpass
 3. prettytable
+4. Colorama
 
 How to use:
 1. install required software, libraries in your system.
