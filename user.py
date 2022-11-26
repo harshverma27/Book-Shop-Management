@@ -198,7 +198,7 @@ def user_main():
             
         
         if choice == 5: # to exit.
-            exit()
+            break
 
         finalChoice = input("Do You want to Continue or Not (Y or N):-")
         if finalChoice.lower() == 'n' or finalChoice.lower() == "no":

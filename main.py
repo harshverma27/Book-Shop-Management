@@ -1,12 +1,12 @@
 # import required modules
-from colorama import Fore
+from colorama import Fore, Back, Style
 from maskpass import *
 from admin import *
 from user import *
 from initial import *
 
 # set colorscheme to White.
-print(Fore.WHITE)
+print(Fore.WHITE,Style.BRIGHT)
 # ensure that database and all tables are created.
 if checkDatabaseExists == False:
     createDatabase()
@@ -36,5 +36,5 @@ else:
     print("Invalid Choice.")
     
 print("Thank You for using my project.")
-print(Fore.RESET)
+print(Fore.RESET,Back.RESET,Style.NORMAL)
 #Created by Harsh Verma (github.com/harshverma27)
