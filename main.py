@@ -1,4 +1,4 @@
-# import required files and modules
+# import required modules
 from colorama import Fore
 from maskpass import *
 from admin import *

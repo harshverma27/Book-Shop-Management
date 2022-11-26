@@ -47,7 +47,7 @@ def admin_main():
         if choice == 1: # To view Data.
 
             # first, create a table using pretty table module
-            myTable =  PrettyTable(["Book_id","Book_Name","Book_Author","Gnere","Book_Price"])
+            myTable =  PrettyTable(["Book_id","Book_Name","Book_Author","Genre","Book_Price"])
 
             # then, add data to it.
             runQueryAddData("select * from book", myTable) 
