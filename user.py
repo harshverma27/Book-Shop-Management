@@ -123,8 +123,15 @@ def user_main():
 
         if choice == 2: # to ask book for issue
 
-            # get book details, to update issue table
+            # get client details, to update issue table
             clientname = input("Enter Your Name: ")
+
+            # print book information
+            myTable = PrettyTable(["Book_id","Book_Name","Book_Author","Genre","Book_Price"])
+            runQueryAddData("select * from book;",myTable)
+            print(myTable)
+
+            # get book details, to update issue table.
             issueid = input("Enter Book_ID of the book you want: ")
 
             # try updating table
@@ -140,16 +147,25 @@ def user_main():
         if choice == 3: # To submit book
             
             #get book details, to update issue table
-            submitid = input("Enter Book ID of book which you want to submit: ")
+            submitname = input("Enter your Name: ")
 
             #try updating table
             try:
-                runQuery("delete from issue where book_id = "+submitid+";")
-                mydb.commit()
-                print("Book Submitted.\n ")
+                # print issue information
+                print("Your Record:- ")
+                myTable = PrettyTable(['Book Name','Client Name'])
+                runQueryAddData("select book.book_name, issue.client_name from book,issue where book.book_id = issue.book_id;", myTable)
+                print(myTable)
 
-            except:
-                print("Wrong Book ID.")
+                # delete issue.
+                runQuery("delete from issue where client_name = '"+submitname+"';")
+                mydb.commit()
+
+                # update user that issue has been cleared.
+                print("Has been cleared.\n ")
+
+            except Exception as e:
+                print("Error: ",e)
         
         
         if choice == 4: # to buy a book
