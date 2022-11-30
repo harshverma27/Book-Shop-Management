@@ -59,6 +59,7 @@ def admin_main():
 
             # get values from admin.
             print("Format: Book ID - Book Name - Book Author - Genre - Price")
+            print("Note that Book ID and Book Name cannot be blank.")
             book_id = input("Enter Book ID: ")
             book_name = input("Enter Book Name: ")
             book_author = input("Enter Book Author Name: ")
