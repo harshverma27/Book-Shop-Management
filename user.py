@@ -18,19 +18,18 @@ def runQueryAddData(s: str,table):
     
 
 # this function checks if a 'id' is in 'book_id' of table buyrequests.
-def checkBookID(id: int):
+def checkID(id: int):
     mycursor.execute("select book_id from acceptedrequests;")
     for i in mycursor.fetchall():  # type: ignore
         for j in i:
             if int(j) == int(id):
                 return True
-                break
     return False
                   
                     
-# the menu fucntion is responsible for choice selection
+# the menu function is responsible for choice selection
 def user_menu():
-    choices = """\nWhat Do You Want To Do?\n1 To View Books.\n2 To Ask book for issue.\n3 To Submit Book.\n4 To Buy Book.\n5 to Exit."""  # All available choices
+    choices = """\nWhat Do You Want To Do?\n1 To View Books.\n2 To Ask book for issue.\n3 To Submit Book.\n4 To Buy Book.\n5 to Check buy status.\n6 For Exit"""  # All available choices
     print(choices)
 
     # the below code inputs chocie ensuring it is between 1 and 5.
@@ -38,12 +37,12 @@ def user_menu():
     while choice == 0:
         try:  # use try-except to make it easier.
             choice = int(input("Enter Choice: "))
-            if choice < 1 or choice > 5:
+            if choice < 1 or choice > 6:
                 # Raise error if choice is not between 1 and 5 to run excpet part.
                 raise TypeError
 
         except:
-            print("Choice Should be in integer and between 1 & 5.")
+            print("Choice Should be in integer and between 1 & 6.")
             # this will make loop run forever until required choice is given.
             choice = 0
 
@@ -169,55 +168,56 @@ def user_main():
         
         
         if choice == 4: # to buy a book
-
-            # in buy book, we have two options one to send a buy-request and other to check if you request was approved.
-            # get choice
-            print("\nWhat Do you want to do?\n1 To buy book.\n2 To check buy status.")
-            secondChoice = int(input("Enter Choice: "))
-
-            # choice 1, to send a request.
-            if secondChoice == 1:
-
-                # we will basically insert record in a 'buyrequests' table.
-                # get values
-                buyid = input("Enter Book ID of book you want to buy: ")
-                clientname = input("Enter Your Name: ")
-
-                # try inserting record;
-                try:
-                    runQuery("insert into buyrequests values("+buyid+",'"+clientname+"');")
-                    mydb.commit()
-                    print("Buy Request Sent.")
-
-                except Exception as e:
-                    print("Error Found: ",e)
+            #print table 
+            myTable = PrettyTable(["Book_id","Book_Name","Book_Author","Genre","Book_Price"])
+            runQueryAddData("select * from book;",myTable)
+            print(myTable) 
             
-            # choice 2, to check if request was approved.
-            if secondChoice == 2:
+            # get values
+            buyid = input("Enter Book ID of book you want to buy: ")
+            clientname = input("Enter Your Name: ")
 
-                # we will check if the same book_id is still in acceptedrequest or not.
-                # get values
-                buyid = input("Enter Book ID of book whose request you sent? ")
+            # try inserting record;
+            try:
+                # we will basically insert record in 'buyrequests' table.
+                runQuery("insert into buyrequests values("+buyid+",'"+clientname+"');")
+                mydb.commit()
+                print("Buy Request Sent.")
 
-                # check if any book_id matches to buyid.
-                if checkBookID(int(buyid)):
+            except Exception as e:
+                print("Error Found: ",e)
 
-                    # if request has been approved we will inform the user.
-                    print("Request Approved. You can take the book now!")
+                
+        if choice == 5: # to check buy status
+            # we will check if the same book_id is in acceptedrequest or not.
 
-                    # and, delete the record from acceptedrequests.
-                    runQuery("delete from acceptedrequests where book_id ="+buyid+";")
-                    mydb.commit()
+            # get values
+            buyid= input("Enter ID of book whose request you sent? ")
 
-                else:
-                    print("Request Not Approved yet.")
+            # check if any book_id matches to buyid.
+            if checkID(int(buyid)):
+
+                # if request has been approved we will inform the user.
+                print("Request Approved. You can take the book now!")
+
+                # and, delete the record from acceptedrequests.
+                runQuery("delete from acceptedrequests where book_id ="+buyid+";")
+                mydb.commit()
+
+            else:
+                print("Request Not Approved yet.")
             
-        
-        if choice == 5: # to exit.
-            break
 
         finalChoice = input("Do You want to Continue or Not (Y or N):-")
+
         if finalChoice.lower() == 'n' or finalChoice.lower() == "no":
+            break
+
+        elif finalChoice.lower() == 'y' or finalChoice.lower() == "yes":
+            continue
+        
+        else:
+            print("Invalid Choice.")
             break
             
 #Created by Harsh Verma (github.com/harshverma27)

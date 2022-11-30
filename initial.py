@@ -2,36 +2,23 @@ import mysql.connector as mc
 mydb = mc.connect(user="root", host="localhost", passwd="root")
 mycursor = mydb.cursor()
 
-# this function checks if a database exist in mysql.
-def checkDatabaseExists():
-    mycursor.execute("show databases like 'bookshop';")
-    if(mycursor.fetchall() == []):
-        return False
-    else:
-        return True
-
 # This fucntion creates a database in mySQL
-def createDatabase():
+def mysqlSetup():
     print("Creating Databases :- ")
-    mycursor.execute("create database bookshop;")
+    mycursor.execute("create if not exits database bookshop;")
     mycursor.execute("use bookshop")
+    print("Database Created.")
 
-# This function checks if a table exists in mySQL
-def checkTableExists():
-    mycursor.execute("use bookshop")
-    mycursor.execute("show tables like 'book'")
-    if(mycursor.fetchall() == []):
-        return False
-    else:
-        return True
+    print("Creating Tables")
+    mycursor.execute("create table if not exists book(book_id int primary key, book_name varchar(100) not null, book_author varchar(50), genre varchar(30), book_price int );")
+    mycursor.execute("create table if not exists issue(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
+    mycursor.execute("create table if not exists buyrequests(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
+    mycursor.execute("create table if not exists acceptedrequests(book_id int, foreign key (book_id) references book(book_id), client_name varchar(30));")
+    print("Table Created.")
 
-# This fucntion creates required tables in mySQL
-def createTables():
-    #Create all tables in databases;
-    print("Creating Table :- ")
-    mycursor.execute("create table book(book_id int primary key, book_name varchar(100), book_author varchar(30) not null, genre varchar(30), book_price int not null);")
-    mycursor.execute("create table issue(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
-    mycursor.execute("create table buyrequests(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
-    mycursor.execute("cretae table acceptedrequests(book_id int, foreign key (book_id) references book(book_id));")
+try :
+    mycursor.execute("use bookshop;")
+except:
+    mysqlSetup()
 
 #Created by Harsh Verma (github.com/harshverma27)

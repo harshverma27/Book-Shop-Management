@@ -73,7 +73,14 @@ def admin_main():
                 print("Record Entered.\n")
 
             except Exception as e:
-                print("Error Found : ", e)
+                # if we get error, we will inform user accordingly.
+                if str(e)[0:12] == "1062 (23000)" : #primary key error
+                    print("Book with ID "+str(e)[31]+" already exists.")
+
+                if str(e)[0:12] == "1054 (42S22)" : #typeerror
+                    print("Price Shouldn't Contain Charcaters.")
+
+                print("Record Not Inserted.")
 
 
         if choice == 3: # To update Data
