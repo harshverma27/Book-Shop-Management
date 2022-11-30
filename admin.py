@@ -64,11 +64,12 @@ def admin_main():
             book_author = input("Enter Book Author Name: ")
             genre = input("Enter Book Genre: ")
             price = input("Enter Book Price:")
+            if price == "": price = "0"
 
             # this below code runs the query to enter data into database;
             try:
                 runQuery("insert into book values("+book_id+',"'+book_name+'","'+book_author+'","'+genre+'",'+price+');')
-
+                
                 mydb.commit() #commit() function saves the chages we made to mysql-server.
                 print("Record Entered.\n")
 
@@ -77,9 +78,11 @@ def admin_main():
                 if str(e)[0:12] == "1062 (23000)" : #primary key error
                     print("Book with ID "+str(e)[31]+" already exists.")
 
-                if str(e)[0:12] == "1054 (42S22)" : #typeerror
+                elif str(e)[0:12] == "1054 (42S22)" : #typeerror
                     print("Price Shouldn't Contain Charcaters.")
 
+                else:
+                    print(e)
                 print("Record Not Inserted.")
 
 
