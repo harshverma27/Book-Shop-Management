@@ -64,12 +64,12 @@ def admin_main():
             book_author = input("Enter Book Author Name: ")
             genre = input("Enter Book Genre: ")
             price = input("Enter Book Price:")
-            if price == "": price = "0"
+            if price == "": price = "NULL"
 
             # this below code runs the query to enter data into database;
             try:
                 runQuery("insert into book values("+book_id+',"'+book_name+'","'+book_author+'","'+genre+'",'+price+');')
-                
+
                 mydb.commit() #commit() function saves the chages we made to mysql-server.
                 print("Record Entered.\n")
 
@@ -169,7 +169,15 @@ def admin_main():
             break
 
         finalChoice = input("Do You want to Continue or Not (Y or N):-")
+
         if finalChoice.lower() == 'n' or finalChoice.lower() == "no":
+            break
+
+        elif finalChoice.lower() == 'y' or finalChoice.lower() == "yes":
+            continue
+        
+        else:
+            print("Invalid Choice.")
             break
 
 #Created by Harsh Verma (github.com/harshverma27)
