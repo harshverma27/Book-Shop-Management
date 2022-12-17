@@ -2,7 +2,7 @@ import mysql.connector as mc
 mydb = mc.connect(user="root", host="localhost", passwd="root")
 mycursor = mydb.cursor()
 
-# This fucntion creates a database in mySQL
+# This function creates all database/tables in mySQL
 def mysqlSetup():
     mycursor.execute("create database if not exists bookshop;")
     mycursor.execute("use bookshop")
