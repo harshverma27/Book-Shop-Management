@@ -206,7 +206,9 @@ def user_main():
 
             else:
                 print("Request Not Approved yet.")
-            
+        
+        if choice == 6:
+            break
 
         finalChoice = input("Do You want to Continue or Not (Y or N):-")
 

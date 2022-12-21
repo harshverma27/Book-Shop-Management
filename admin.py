@@ -4,7 +4,7 @@ mydb = mc.connect(user="root", host="localhost", passwd="root", database='booksh
 mycursor = mydb.cursor()
 adminpasswd = "bookshop"
 
-# this fucntion runs query in SQL shell, and prints the output.
+# this function runs query in SQL shell, and prints the output.
 def runQuery(s: str):
     mycursor.execute(s)
     for i in mycursor.fetchall():  # type: ignore
@@ -21,13 +21,13 @@ def admin_menu():
     choices = """\nWhat Do You Want To Do?\n1 To View Books.\n2 To Enter Book Data.\n3 To Update Book Data.\n4 To Delete Book Data.\n5 To Check Issues.\n6 To check buy requests.\n7 To EXIT"""  # All available choices
     print(choices)
 
-    # the below code inputs chocie ensuring it is between 1 and 5.
+    # the below code inputs choice ensuring it is between 1 and 5.
     choice = 0
     while choice == 0:
         try:  # use try-except to make it easier.
             choice = int(input("Enter Choice: "))
             if choice < 1 or choice > 7:
-                # Raise error if choice is not between 1 and 5 to run excpet part.
+                # Raise error if choice is not between 1 and 5 to run except part.
                 raise TypeError
 
         except:
@@ -80,7 +80,7 @@ def admin_main():
                     print("Book with ID "+str(e)[31]+" already exists.")
 
                 elif str(e)[0:12] == "1054 (42S22)" : #typeerror
-                    print("Price Shouldn't Contain Charcaters.")
+                    print("Price Shouldn't Contain Characters.")
 
                 else:
                     print(e)
