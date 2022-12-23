@@ -147,7 +147,7 @@ def admin_main():
             print(myTable)
 
             # now, we will ask admin, which buy request he wants to accept.
-            print("Which request do you want to accept? (Leave Blank for non.)")
+            print("Which request do you want to accept? (Leave Blank for none.)")
             secondChoice = input("Enter Book ID: ")
 
             # if admin input a book_id to accept, then

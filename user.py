@@ -183,6 +183,7 @@ def user_main():
                 runQuery("insert into buyrequests values("+buyid+",'"+clientname+"');")
                 mydb.commit()
                 print("Buy Request Sent.")
+                print("Remember Book id for future reference.")
 
             except Exception as e:
                 print("Error Found: ",e)
