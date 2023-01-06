@@ -9,7 +9,7 @@ def mysqlSetup():
     mycursor.execute("create table if not exists book(book_id int primary key, book_name varchar(100) not null, book_author varchar(50), genre varchar(30), book_price int );")
     mycursor.execute("create table if not exists issue(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
     mycursor.execute("create table if not exists buyrequests(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
-    mycursor.execute("create table if not exists acceptedrequests(book_id int, foreign key (book_id) references book(book_id), client_name varchar(30));")
+    mycursor.execute("create table if not exists acceptedrequests(book_id int, foreign key (book_id) references book(book_id));")
 
 # Create all neccasery tables.
 mysqlSetup()
