@@ -5,6 +5,11 @@ from initial import *
 from admin import *
 from user import *
 
+# header
+print(Fore.BLUE, Style.BRIGHT)
+print("::::BOOK SHOP MANAGEMENT::::")
+print(Fore.RESET,Style.NORMAL)
+
 # set colorscheme to White.
 print(Fore.WHITE,Style.BRIGHT)
 
