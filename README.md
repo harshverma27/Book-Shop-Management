@@ -10,10 +10,10 @@ Required Python Libraries/Modules:
 2. maskpass
 3. prettytable
 4. Colorama
+But, you don't have to worry about installing libraries. The Program will do it for you.
 
 How to use:
-1. install required software, libraries in your system.
-2. now all you have to do is run the 'main.py' file, and done.
+1. all you have to do is run the 'main.py' file, and done.
 
 I hope you will love the project, suggestions are invited. :)
 Thank You.

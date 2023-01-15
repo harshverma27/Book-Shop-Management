@@ -11,7 +11,5 @@ def mysqlSetup():
     mycursor.execute("create table if not exists buyrequests(book_id int, client_name varchar(30), foreign key (book_id) references book(book_id));")
     mycursor.execute("create table if not exists acceptedrequests(book_id int, foreign key (book_id) references book(book_id));")
 
-# Create all neccasery tables.
+# create neccasery tables
 mysqlSetup()
-
-#Created by Harsh Verma (github.com/harshverma27)
