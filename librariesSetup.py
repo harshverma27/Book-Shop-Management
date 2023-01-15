@@ -27,7 +27,7 @@ def librarySetup():
         #prettytable library
         if "prettytable" not in libraries:
             print("Installing PrettyTable")
-            os.system("pip instll prettytable -q")
+            os.system("pip install prettytable -q")
             print("Installed PrettyTable")
         
         #mysql-connector library
@@ -37,6 +37,6 @@ def librarySetup():
             print("Installed MySQL Connector")
 
         print("Installed Libraries")
-        
+
 # install required libraries.
 librarySetup()
