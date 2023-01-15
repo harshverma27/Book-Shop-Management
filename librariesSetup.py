@@ -33,7 +33,7 @@ def librarySetup():
         #mysql-connector library
         if "mysql-connector-python" not in libraries:
             print("Installing MySQL Connector")
-            os.system("pip install mysql-connector-pyhthon -q")
+            os.system("pip install mysql-connector-python -q")
             print("Installed MySQL Connector")
 
         print("Installed Libraries")
