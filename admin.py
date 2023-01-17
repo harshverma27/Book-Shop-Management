@@ -27,7 +27,7 @@ def admin_menu():
         try:  # use try-except to make it easier.
             choice = int(input("Enter Choice: "))
             if choice < 1 or choice > 7:
-                # Raise error if choice is not between 1 and 5 to run except part.
+                # Raise error if choice is not between 1 and 7 to run except part.
                 raise TypeError
 
         except:
